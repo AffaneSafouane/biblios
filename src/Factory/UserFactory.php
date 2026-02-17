@@ -49,7 +49,7 @@ final class UserFactory extends PersistentProxyObjectFactory
             'email' => 'admin@email.com',
             'firstname' => 'Chef', // You can even hardcode these for the Admin...
             'lastname' => 'Admin',
-            'password' => $this->hasher->hashPassword(new User(), 'admin1234!'),
+            'password' => $this->hasher->hashPassword(new User(), 'Admin1234!'),
             'roles' => ['ROLE_ADMIN'],
         ]);
     }
@@ -58,7 +58,7 @@ final class UserFactory extends PersistentProxyObjectFactory
     {
         return $this->with([
             'email' => 'user@email.com',
-            'password' => $this->hasher->hashPassword(new User(), 'abcd1234!'),
+            'password' => $this->hasher->hashPassword(new User(), 'Abcd1234!'),
             'roles' => ['ROLE_USER'],
         ]);
     }

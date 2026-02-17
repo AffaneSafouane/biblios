@@ -16,6 +16,21 @@ Application web de gestion de bibliothèque développée avec Symfony 7, offrant
 - **Frontend** : Twig (moteur de templates) + Bootstrap 5
 - **Sécurité** : Symfony Security Component (authentification et autorisation)
 
+## Démo en ligne
+
+Une version de démonstration de l'application est disponible à l'adresse suivante :
+
+**[biblios-demo](https://saffane.alwaysdata.net/biblios/)**
+
+⚠️ **Environnement de démonstration** : les données peuvent être réinitialisées périodiquement. Merci de ne pas soumettre d'informations personnelles réelles.
+
+### Comptes de démonstration
+
+| Rôle | Email | Mot de passe |
+|------|-------|--------------|
+| Administrateur | `admin@email.com` | `admin1234!` |
+| Utilisateur | `user@email.com` | `abcd1234!` |
+
 ## Prérequis
 
 - PHP 8.3 ou supérieur
@@ -27,8 +42,8 @@ Application web de gestion de bibliothèque développée avec Symfony 7, offrant
 
 1. Cloner le dépôt :
 ```bash
-git clone https://github.com/AffaneSafouane/biblios_v1.git
-cd biblios_v1
+git clone https://github.com/AffaneSafouane/biblios.git
+cd biblios
 ```
 
 2. Installer les dépendances :
@@ -38,7 +53,7 @@ composer install
 
 3. Configurer la base de données :
 ```bash
-# Éditer le fichier .env et configurer DATABASE_URL
+# Éditer le fichier .env, ou créer un fichier .env.local, et configurer DATABASE_URL
 DATABASE_URL="postgresql://user:password@127.0.0.1:5432/bibliotheque?serverVersion=14&charset=utf8"
 ```
 
@@ -79,31 +94,37 @@ L'application sera accessible à l'adresse : `http://localhost:8000`
 
 ## Structure du projet
 ```
-src/
-├── Controller/      # Contrôleurs Symfony
-├── DataFixtures/
-├── Entity/          # Entités Doctrine (modèles)
-├── Enum/
-├── EventListener/
-├── Factory/
-├── Form/            # Formulaires
-├── Repository/      # Repositories Doctrine
-└── Security/        # Configuration de sécurité
-
-templates/           # Templates Twig
-├── base.html.twig
-├── maintenance.html.twig
-├── user/
-├── security/
-├── pagerfanta/
-├── main/
-├── emails/
-├── contact/
-├── comment/
-├── book/
-└── admin/
-
-public/              # Assets publics (CSS, JS, images)
+biblios_v1/
+├── config/                  # Configuration Symfony (routes, services, packages)
+├── migrations/              # Migrations Doctrine
+├── public/                  # Point d'entrée web (index.php, assets)
+├── src/
+│   ├── Controller/          # Contrôleurs Symfony
+│   ├── DataFixtures/        # Données de test
+│   ├── Entity/              # Entités Doctrine (modèles)
+│   ├── Enum/                # Énumérations PHP
+│   ├── EventListener/       # Écouteurs d'événements Symfony
+│   ├── Factory/             # Factories (génération de fixtures)
+│   ├── Form/                # Formulaires Symfony
+│   ├── Repository/          # Repositories Doctrine
+│   └── Security/            # Voters, authenticators et configuration de sécurité
+├── templates/           # Templates Twig
+│   ├── base.html.twig
+│   ├── maintenance.html.twig
+│   ├── user/
+│   ├── security/
+│   ├── pagerfanta/
+│   ├── main/
+│   ├── emails/
+│   ├── contact/
+│   ├── comment/
+│   ├── book/
+│   └── admin/
+├── tests/                   # Tests unitaires et fonctionnels
+├── .env                     # Variables d'environnement
+├── composer.json
+├── symfony.lock
+└── README.md
 ```
 
 ## Auteur
