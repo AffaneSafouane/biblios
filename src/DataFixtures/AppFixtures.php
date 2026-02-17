@@ -18,6 +18,10 @@ class AppFixtures extends Fixture
         EditorFactory::createMany(20);
         UserFactory::createMany(5);
         BookFactory::createMany(100);
-        CommentFactory::createMany(200);
+        CommentFactory::createMany(50);
+
+        UserFactory::new()->admin()->create();
+
+        UserFactory::new()->standardUser()->create();
     }
 }

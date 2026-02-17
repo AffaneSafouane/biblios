@@ -63,21 +63,31 @@ class RegistrationController extends AbstractController
                 )
             );
 
-            $user->setIsVerified(false);
+            $user->setIsVerified(true);
+
+            $roles = $form->get('role')->getData();
+
+            $roles = array_diff($roles, ['ROLE_ADMIN']);
+
+            if (!in_array('ROLE_USER', $roles)) {
+                $roles[] = 'ROLE_USER';
+            }
+
+            $user->setRoles($roles);
 
             $entityManager->persist($user);
             $entityManager->flush();
 
             // generate a signed url and email it to the user
-            $this->emailVerifier->sendEmailConfirmation(
-                'app_verify_email',
-                $user,
-                (new TemplatedEmail())
-                    ->from(new Address('saf@demo.com'))
-                    ->to($user->getEmail())
-                    ->subject('Veuillez confirmer votre Email')
-                    ->htmlTemplate('admin/registration/confirmation_email.html.twig')
-            );
+            // $this->emailVerifier->sendEmailConfirmation(
+            //     'app_verify_email',
+            //     $user,
+            //     (new TemplatedEmail())
+            //         ->from(new Address('saf@demo.com'))
+            //         ->to($user->getEmail())
+            //         ->subject('Veuillez confirmer votre Email')
+            //         ->htmlTemplate('admin/registration/confirmation_email.html.twig')
+            // );
 
             return $this->redirectToRoute('app_main_index');
         }

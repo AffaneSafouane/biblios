@@ -41,7 +41,6 @@ class RegistrationFormType extends AbstractType
                     'Modérateur' => 'ROLE_MODERATEUR',
                     'Ajout de livre' => 'ROLE_AJOUT_DE_LIVRE',
                     'Édition de livre' => 'ROLE_EDITION_DE_LIVRE',
-                    'Administrateur-rice' => 'ROLE_ADMIN',
                 ],
                 'multiple' => true,
                 'expanded' => true,
