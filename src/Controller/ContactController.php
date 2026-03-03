@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class ContactController extends AbstractController
 {
-    #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
+    // #[Route('/contact', name: 'app_contact', methods: ['GET', 'POST'])]
     public function contact(Request $request, EntityManagerInterface $manager, MailerInterface $mailer): Response
     {
         $contact = new Contact();
