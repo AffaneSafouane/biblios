@@ -3,12 +3,12 @@
 namespace App\Factory;
 
 use App\Entity\Author;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Author>
+ * @extends PersistentObjectFactory<Author>
  */
-final class AuthorFactory extends PersistentProxyObjectFactory
+final class AuthorFactory extends PersistentObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services

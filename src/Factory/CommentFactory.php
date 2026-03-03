@@ -4,12 +4,12 @@ namespace App\Factory;
 
 use App\Entity\Comment;
 use App\Enum\CommentStatus;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Comment>
+ * @extends PersistentObjectFactory<Comment>
  */
-final class CommentFactory extends PersistentProxyObjectFactory
+final class CommentFactory extends PersistentObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services

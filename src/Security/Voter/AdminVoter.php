@@ -9,6 +9,7 @@ use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 
 class AdminVoter extends Voter
 {
@@ -34,9 +35,10 @@ class AdminVoter extends Voter
      * @param string $attribute
      * @param Author|Book|Editor|null $subject
      * @param TokenInterface $token
+     * @param Vote|null $vote The vote context (added in Symfony 8.0)
      * @return bool
      */
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $token->getUser();
 
@@ -48,10 +50,10 @@ class AdminVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         return match ($attribute) {
             self::EDIT, self::DELETE => ($subject instanceof Author || $subject instanceof Editor || $subject instanceof Book)
-                && $this->security->isGranted('ROLE_EDITION_DE_LIVRE')
-                && ($user->getIsVerified() === true),
+            && $this->security->isGranted('ROLE_EDITION_DE_LIVRE')
+            && ($user->getIsVerified() === true),
             self::CREATE => $this->security->isGranted('ROLE_AJOUT_DE_LIVRE')
-                && ($user->getIsVerified()) === true,
+            && ($user->getIsVerified()) === true,
             default => false,
         };
     }

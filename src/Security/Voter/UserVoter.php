@@ -6,6 +6,7 @@ use App\Entity\User;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 
 class UserVoter extends Voter
 {
@@ -16,7 +17,8 @@ class UserVoter extends Voter
     public const CREATE = 'USER_CREATE';
 
     public function __construct(private readonly Security $security)
-    {}
+    {
+    }
 
     protected function supports(string $attribute, mixed $subject): bool
     {
@@ -24,7 +26,7 @@ class UserVoter extends Voter
             return true;
         }
 
-        return in_array($attribute, [self::EDIT, self::LIST, self::VIEW, self::DELETE])
+        return in_array($attribute, [self::EDIT, self::LIST , self::VIEW, self::DELETE])
             && $subject instanceof User;
     }
 
@@ -32,9 +34,10 @@ class UserVoter extends Voter
      * @param string $attribute
      * @param User|null $subject
      * @param TokenInterface $token
+     * @param Vote|null $vote The vote context (added in Symfony 8.0)
      * @return bool
      */
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $token->getUser();
 
@@ -46,13 +49,13 @@ class UserVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         return match ($attribute) {
             self::EDIT, self::VIEW, self::DELETE => $subject instanceof User
-                && $user->getIsVerified() === true
-                && $user === $subject,
+            && $user->getIsVerified() === true
+            && $user === $subject,
             self::LIST => $subject instanceof User
-                && $user->getIsVerified() === true
-                && $this->security->isGranted("ROLE_ADMIN"),
+            && $user->getIsVerified() === true
+            && $this->security->isGranted("ROLE_ADMIN"),
             self::CREATE => $user->getIsVerified() === true
-                && $this->security->isGranted("ROLE_ADMIN"),
+            && $this->security->isGranted("ROLE_ADMIN"),
             default => false,
         };
     }

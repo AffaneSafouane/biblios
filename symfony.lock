@@ -2,6 +2,15 @@
     "babdev/pagerfanta-bundle": {
         "version": "v4.4.0"
     },
+    "doctrine/deprecations": {
+        "version": "1.1",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "1.0",
+            "ref": "87424683adc81d7dc305eefec1fced883084aab9"
+        }
+    },
     "doctrine/doctrine-bundle": {
         "version": "2.12",
         "recipe": {
@@ -17,7 +26,7 @@
         ]
     },
     "doctrine/doctrine-fixtures-bundle": {
-        "version": "3.6",
+        "version": "4.3",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
@@ -25,7 +34,7 @@
             "ref": "1f5514cfa15b947298df4d771e694e578d4c204d"
         },
         "files": [
-            "./src/DataFixtures/AppFixtures.php"
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -104,6 +113,18 @@
         },
         "files": [
             "./.env"
+        ]
+    },
+    "symfony/form": {
+        "version": "8.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.2",
+            "ref": "7d86a6723f4a623f59e2bf966b6aad2fc461d36b"
+        },
+        "files": [
+            "config/packages/csrf.yaml"
         ]
     },
     "symfony/framework-bundle": {
@@ -195,6 +216,18 @@
             "./bin/phpunit",
             "./phpunit.xml.dist",
             "./tests/bootstrap.php"
+        ]
+    },
+    "symfony/property-info": {
+        "version": "8.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "main",
+            "version": "7.3",
+            "ref": "dae70df71978ae9226ae915ffd5fad817f5ca1f7"
+        },
+        "files": [
+            "config/packages/property_info.yaml"
         ]
     },
     "symfony/routing": {
@@ -298,15 +331,16 @@
         "version": "v3.11.0"
     },
     "zenstruck/foundry": {
-        "version": "2.0",
+        "version": "2.9",
         "recipe": {
             "repo": "github.com/symfony/recipes",
             "branch": "main",
-            "version": "1.10",
-            "ref": "37c2f894cc098ab4c08874b80cccc8e2f8de7976"
+            "version": "2.7",
+            "ref": "7fc98f546dfeaa83cc2110634f8ff078d070b965"
         },
         "files": [
-            "./config/packages/zenstruck_foundry.yaml"
+            "config/packages/zenstruck_foundry.yaml",
+            "src/Story/AppStory.php"
         ]
     }
 }

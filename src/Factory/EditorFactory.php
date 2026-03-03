@@ -3,12 +3,12 @@
 namespace App\Factory;
 
 use App\Entity\Editor;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Editor>
+ * @extends PersistentObjectFactory<Editor>
  */
-final class EditorFactory extends PersistentProxyObjectFactory
+final class EditorFactory extends PersistentObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services

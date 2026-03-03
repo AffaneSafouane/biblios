@@ -4,12 +4,12 @@ namespace App\Factory;
 
 use App\Entity\Book;
 use App\Enum\BookStatus;
-use Zenstruck\Foundry\Persistence\PersistentProxyObjectFactory;
+use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
- * @extends PersistentProxyObjectFactory<Book>
+ * @extends PersistentObjectFactory<Book>
  */
-final class BookFactory extends PersistentProxyObjectFactory
+final class BookFactory extends PersistentObjectFactory
 {
     /**
      * @see https://symfony.com/bundles/ZenstruckFoundryBundle/current/index.html#factories-as-services

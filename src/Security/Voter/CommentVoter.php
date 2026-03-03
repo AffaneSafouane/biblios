@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
+use Symfony\Component\Security\Core\Authorization\Voter\Vote;
 
 class CommentVoter extends Voter
 {
@@ -27,10 +28,10 @@ class CommentVoter extends Voter
      * @param string $attribute
      * @param Comment|null $subject
      * @param TokenInterface $token
+     * @param Vote|null $vote The vote context (added in Symfony 8.0)
      * @return bool
-     *
      */
-    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
+    protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token, ?Vote $vote = null): bool
     {
         $user = $token->getUser();
 
@@ -42,8 +43,8 @@ class CommentVoter extends Voter
         // ... (check conditions and return true to grant permission) ...
         return match ($attribute) {
             self::EDIT, self::DELETE => $subject instanceof Comment
-                && $user->getIsVerified() === true
-                && $user === $subject->getCommentedBy(),
+            && $user->getIsVerified() === true
+            && $user === $subject->getCommentedBy(),
             self::CREATE => $user->getIsVerified() === true,
             default => false,
         };
