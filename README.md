@@ -86,11 +86,11 @@ L'application sera accessible à l'adresse : `http://localhost:8000`
 
 - **Administrateur** : 
   - Email : `admin@email.com`
-  - Mot de passe : `admin1234!`
+  - Mot de passe : `Admin1234!`
   
 - **Utilisateur** :
   - Email : `user@email.com`
-  - Mot de passe : `abcd1234!`
+  - Mot de passe : `Abcd1234!`
 
 ## Structure du projet
 ```

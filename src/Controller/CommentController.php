@@ -14,6 +14,7 @@ use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bridge\Doctrine\Attribute\MapEntity;
 
 #[Route('/comment')]
 class CommentController extends AbstractController
@@ -39,17 +40,29 @@ class CommentController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/new', name: 'app_comment_new', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    #[Route('/{id}/edit', name: 'app_comment_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
-    public function new(Book $book, ?Comment $comment, Request $request, EntityManagerInterface $manager, Security $security): Response
-    {
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    #[Route('/book/{id}/new', name: 'app_comment_new', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'app_comment_edit')]
+    public function new(
+        #[MapEntity] ?Book $book,
+        #[MapEntity] ?Comment $comment,
+        Request $request,
+        EntityManagerInterface $manager,
+        Security $security
+    ): Response {
         if ($comment) {
-            if ($this->getUser() !== $comment->getCommentedBy()) {
+            if (
+                $this->getUser() !== $comment->getCommentedBy()
+                && !$this->isGranted('ROLE_ADMIN')
+            ) {
                 throw $this->createAccessDeniedException('Access denied.');
             }
         }
 
         $comment ??= new Comment();
+        if (!$book && $comment) {
+            $book = $comment->getBook();
+        }
         $form = $this->createForm(CommentType::class, $comment, [
             'book' => $book,
         ]);
@@ -77,16 +90,20 @@ class CommentController extends AbstractController
         ]);
     }
 
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
     #[Route('/{id}/delete', name: 'app_comment_delete', requirements: ['id' => '\d+'], methods: ['DELETE'])]
     public function delete(Comment $comment, Request $request, EntityManagerInterface $manager): Response
     {
-        if ($this->getUser() !== $comment->getCommentedBy()) {
+        if (
+            $this->getUser() !== $comment->getCommentedBy()
+            && !$this->isGranted('ROLE_ADMIN')
+        ) {
             throw $this->createAccessDeniedException('Access denied.');
         }
 
         $token = $request->getPayload()->get('token');
 
-        if ($this->isCsrfTokenValid('delete', $token)) {
+        if ($this->isCsrfTokenValid('delete' . $comment->getId(), $token)) {
             $manager->remove($comment);
             $manager->flush();
         }

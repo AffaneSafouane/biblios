@@ -35,7 +35,7 @@ class RegistrationFormType extends AbstractType
             ->add('email', EmailType::class, [
                 'attr' => ['style' => 'background-color: #1b1e1f; color: white; border: 1px solid gray;']
             ])
-            ->add('role', ChoiceType::class, [
+            ->add('roles', ChoiceType::class, [
                 'choices' => [
                     'Utilisateur-rice' => 'ROLE_USER',
                     'Modérateur' => 'ROLE_MODERATEUR',

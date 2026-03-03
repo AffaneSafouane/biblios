@@ -1,12 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Connnexion !{% endblock %}
+{% block title %}Connnexion !
+{% endblock %}
 
 {% block body %}
 	<section class="container px-4">
 		{% for flash_error in app.flashes('verify_email_error') %}
-            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-        {% endfor %}
+			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+		{% endfor %}
+
+		<div class="text-center mb-4">
+			<h1 class="mb-3">Utilisateurs Démo</h1>
+			<div
+				class="row justify-content-center g-3">
+				<!-- Admin Card -->
+				<div class="col-md-4">
+					<div class="card border-primary h-100 shadow-sm">
+						<div class="card-header bg-primary text-white">
+							Admin
+						</div>
+						<div class="card-body">
+							<p>
+								<strong>Email:</strong>
+								admin@email.com</p>
+							<p>
+								<strong>Mot de passe:</strong>
+								Admin1234!</p>
+						</div>
+					</div>
+				</div>
+				<!-- User Card -->
+				<div class="col-md-4">
+					<div class="card border-success h-100 shadow-sm">
+						<div class="card-header bg-success text-white">
+							Utilisateur
+						</div>
+						<div class="card-body">
+							<p>
+								<strong>Email:</strong>
+								user@email.com</p>
+							<p>
+								<strong>Mot de passe:</strong>
+								Abcd1234!</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="w-50 m-auto">
 			<form method="post">
 				{% if error %}
@@ -26,7 +67,7 @@
 					<label for="email" class="form-label">Email</label>
 					<input type="username" value="{{ last_username }}" name="_username" id="username" class="form-control" style="background-color: #1b1e1f; color: white; border: 1px solid gray;" autocomplete="email" required autofocus>
 				</div>
-				
+
 				<div class="mb-3">
 					<label for="password" class="form-label">Mot de passe</label>
 					<input type="password" name="_password" id="password" class="form-control" style="background-color: #1b1e1f; color: white; border: 1px solid gray;" autocomplete="current-password" required>
@@ -36,14 +77,14 @@
 				type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
 
 				{#
-				            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
-				            See https://symfony.com/doc/current/security/remember_me.html
-				
-				            <div class="checkbox mb-3">
-				                <input type="checkbox" name="_remember_me" id="_remember_me">
-				                <label for="_remember_me">Remember me</label>
-				            </div>
-				#}
+								            Uncomment this section and add a remember_me option below your firewall to activate remember me functionality.
+								            See https://symfony.com/doc/current/security/remember_me.html
+								
+								            <div class="checkbox mb-3">
+								                <input type="checkbox" name="_remember_me" id="_remember_me">
+								                <label for="_remember_me">Remember me</label>
+								            </div>
+								#}
 
 				<button class="btn btn-primary" type="submit">
 					Connexion

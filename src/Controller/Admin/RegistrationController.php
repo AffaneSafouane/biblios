@@ -65,7 +65,7 @@ class RegistrationController extends AbstractController
 
             $user->setIsVerified(true);
 
-            $roles = $form->get('role')->getData();
+            $roles = $form->get('roles')->getData();
 
             $roles = array_diff($roles, ['ROLE_ADMIN']);
 

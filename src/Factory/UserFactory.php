@@ -37,9 +37,9 @@ final class UserFactory extends PersistentProxyObjectFactory
             'email' => self::faker()->unique()->email(),
             'firstname' => self::faker()->firstName(),
             'lastname' => self::faker()->lastName(),
-            'password' => $this->hasher->hashPassword(new User(), 'abcd1234!'),
+            'password' => $this->hasher->hashPassword(new User(), 'Abcd1234!'),
             'roles' => [self::faker()->randomElement(['ROLE_USER', 'ROLE_MODERATEUR', 'ROLE_AJOUT_DE_LIVRE', 'ROLE_EDITION_DE_LIVRE'])],
-            'isVerified' => self::faker()->boolean(50),
+            'isVerified' => true,
         ];
     }
 
@@ -47,10 +47,11 @@ final class UserFactory extends PersistentProxyObjectFactory
     {
         return $this->with([
             'email' => 'admin@email.com',
-            'firstname' => 'Chef', // You can even hardcode these for the Admin...
+            'firstname' => 'Chef', 
             'lastname' => 'Admin',
             'password' => $this->hasher->hashPassword(new User(), 'Admin1234!'),
             'roles' => ['ROLE_ADMIN'],
+            'isVerified' => true,
         ]);
     }
 
@@ -58,7 +59,6 @@ final class UserFactory extends PersistentProxyObjectFactory
     {
         return $this->with([
             'email' => 'user@email.com',
-            'password' => $this->hasher->hashPassword(new User(), 'Abcd1234!'),
             'roles' => ['ROLE_USER'],
         ]);
     }
